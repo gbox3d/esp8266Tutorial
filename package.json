@@ -1,0 +1,34 @@
+{
+  "name": "esp8266tutorial",
+  "version": "1.0.0",
+  "description": "nodemcu tutorial",
+  "main": "index.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbox3d/esp8266Tutorial.git"
+  },
+  "keywords": [
+    "nodemcu",
+    "lua",
+    "esp8266",
+    "nodejs"
+  ],
+  "author": "gbox3d",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbox3d/esp8266Tutorial/issues"
+  },
+  "homepage": "https://github.com/gbox3d/esp8266Tutorial#readme",
+  "dependencies": {
+    "async": "^2.6.2",
+    "serial": "0.0.9",
+    "serialport": "^7.1.4"
+  }
+}

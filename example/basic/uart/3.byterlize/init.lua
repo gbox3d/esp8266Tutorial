@@ -18,7 +18,7 @@ function startApp()
     uart.on("data", string.char(0x0a), --parse by \n 에서 끊기
         function(data)
             print('--------start--------')
-            data:gsub(".", function(code)
+            data:gsub(".", function(code) -- 한바이트씩 처리하기
                 print(code:byte() .. '/' .. code)
             end)
             print('--------end--------')
