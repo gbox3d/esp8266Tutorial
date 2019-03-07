@@ -559,3 +559,5 @@ typings/
 # Serverless directories
 .serverless
 
+/old
+/test
