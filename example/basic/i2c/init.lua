@@ -1,16 +1,3 @@
-tm1637 = require('tm1637')
-
-clk = 6
-dio = 5
-
-tmr.create():alarm(5000,tmr.ALARM_SINGLE,function () 
-    print('start..')
-    tm1637.init(clk, dio)
-    print('init ok')
-    tm1637.set_brightness(7) 
-    tm1637.write_string('1.2.3.4.')
-end)
-
 
 id  = 0
 sda = 1
@@ -43,7 +30,3 @@ end
 print("i2c sample")
 
 --sendData(8,"{a:1}");
-
---sendData(8,{49})
--- tm1637.write_string('1.2.3.4.')
--- tm1637.set_brightness(7) 
