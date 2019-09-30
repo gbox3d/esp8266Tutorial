@@ -29,4 +29,7 @@ end
 
 print("i2c sample")
 
---sendData(8,"{a:1}");
+--[[
+    sendData(27,"{a:1}");
+    =readData(27,8):byte(1) --첫번째 바이트 읽기 
+]]--
