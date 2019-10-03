@@ -34,6 +34,7 @@ function readUnpackData(  )
     s = readData(27,16); -- 2 * 8, 아두이노에서 int형은 2바이트임 
 
     --아두이노에서 넘어오는 int dat[8] 읽기
+    -- i(int)2(바이트수)
     print(struct.unpack("<i2i2i2i2i2i2i2i2",s))
     r = {struct.unpack("<i2i2i2i2i2i2i2i2",s)}
 
@@ -53,6 +54,7 @@ struct _S_Packet {
   int m_nNum;];
 };
     ]]
+    -- B unsined char, i2 ( 2 byte 정수형) 
     _s = struct.pack("Bi2",65,8266 )
     sendData(27,_s)
 end
