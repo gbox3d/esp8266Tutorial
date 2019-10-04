@@ -12,18 +12,23 @@ ledPin = 4
 gpio.mode(ledPin,gpio.OUTPUT)
 gpio.write(ledPin,gpio.HIGH)
 
-local udp_socket = net.createUDPSocket()
+udp_socket = net.createUDPSocket()
 udp_socket:on("receive",function(sck,data,port,ip) 
     print('recv : ' .. data ) 
-    print('port :' .. port)
-    print('ip :' .. ip)
+    print('remote port :' .. port)
+    print('remote ip :' .. ip)
+
+    _port, _ip = sck:getaddr()
+
+    print('local port :' .. _port)
+    print('local ip :' .. _ip)
 
     if data == 'on' then gpio.write(ledPin,gpio.LOW)  
     elseif data == 'off' then
         gpio.write(ledPin,gpio.HIGH)  
     end
     -- sck:send(port,ip,"ok " .. data)
-    udp_socket:send(port,ip,"ok " .. data)
+    udp_socket:send(port,ip,"ok " .. data) --sck 를 써도 똑같음 
     
 end)
 
