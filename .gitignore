@@ -563,3 +563,5 @@ typings/
 /test
 
 _conwifi.lua
+
+.vscode
