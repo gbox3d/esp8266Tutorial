@@ -1,0 +1,11 @@
+{
+  "name": "net_tools",
+  "version": "1.0.0",
+  "description": "network test tools",
+  "main": "udp_server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
