@@ -50,7 +50,7 @@ void setup()
     _f.close();
   }
 
-  WiFi.begin(ssid, passwd);
+  WiFi.begin("ubiqos office", "28608010");
 
   Serial.print("Connecting");
   while (WiFi.status() != WL_CONNECTED)
@@ -84,7 +84,8 @@ void loop()
     testPacket.m_index = 15001;
     testPacket.m_sensorData = 96.75;
 
-    Udp.beginPacket("192.168.4.2", 2012);
+    IPAddress remote_ip(192,168,4,2);
+    Udp.beginPacket(remote_ip, 2012);
     Udp.write((const char *)&testPacket, sizeof(S_Packet));
 
     Udp.endPacket();
@@ -111,7 +112,8 @@ void loop()
                     receivePacket.m_extra);
 
       Serial.println();
-      Serial.printf("data : %d",receivePacket.m_data);
+      Serial.printf("data : %d", receivePacket.m_data);
+
 
       // if (len > 0)
       // {

@@ -27,7 +27,7 @@ server.on( "message", function( msg, rinfo ) {
 
     server.send(
         resBuf, 0, 8,
-        4210, rinfo.address ); // added missing bracket
+        rinfo.port, rinfo.address ); // added missing bracket
 });
 
 server.bind(localPort)
