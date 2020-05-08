@@ -1,7 +1,8 @@
 const dgram = require( "dgram" );
 const server = dgram.createSocket( "udp4" );
+const yargs = require('yargs').argv;
 
-const localPort = 2012
+const localPort = yargs.port
 
 server.on( "message", function( msg, rinfo ) {
 
