@@ -1,5 +1,9 @@
 ## esp8266 arduino
 
+공식문서  
+https://arduino-esp8266.readthedocs.io/en/latest/index.html
+
+
 ### gpio
 
 16 핀은 pulldown 가능하다, 나머지 핀들은 pullup 만 가능함.  

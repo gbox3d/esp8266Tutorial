@@ -50,7 +50,8 @@ void setup()
     _f.close();
   }
 
-  WiFi.begin("ubiqos office", "28608010");
+  //WiFi.begin("ubiqos office", "28608010");
+  WiFi.begin(ssid,passwd);
 
   Serial.print("Connecting");
   while (WiFi.status() != WL_CONNECTED)
