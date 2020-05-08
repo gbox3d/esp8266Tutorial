@@ -225,10 +225,11 @@ void loop()
                         Serial.println("connected]");
 
                         Serial.println("[Sending a request]");
-                        client.print(String("GET /") + " HTTP/1.1\r\n" +
-                                     "Host: " + g_ConfigData.m_remoteIp.c_str() + "\r\n" +
-                                     "Connection: close\r\n" +
-                                     "\r\n");
+                        // client.print(String("GET /") + " HTTP/1.1\r\n" +
+                        //              "Host: " + g_ConfigData.m_remoteIp.c_str() + "\r\n" +
+                        //              "Connection: close\r\n" +
+                        //              "\r\n");
+                        client.print("hello\n");
 
                         Serial.println("[Response:]");
                         while (client.connected() || client.available())
@@ -237,10 +238,15 @@ void loop()
                             {
                                 String line = client.readStringUntil('\n');
                                 Serial.println(line);
+                                break;;
                             }
+                            // Serial.printf("%f \n",client.available());
+                            // delay(300);
                         }
-                        client.stop();
+                        // Serial.println("\n[disconnecting.....]");
                         Serial.println("\n[Disconnected]");
+                        client.stop();
+                        
                     }
                     else
                     {
