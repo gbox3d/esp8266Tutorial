@@ -4,6 +4,43 @@
 https://arduino-esp8266.readthedocs.io/en/latest/index.html
 
 
+### vscode c/cpp 환경설정 
+
+c_cpp_properties.json파일 예제  
+
+
+```json
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/Users/gbox3d/Library/Arduino15/packages/esp8266/tools/**",
+                "/Users/gbox3d/Library/Arduino15/packages/esp8266/hardware/esp8266/2.7.1/**",
+                "/Users/gbox3d/Documents/Arduino/libraries/**",
+                "/Users/gbox3d/Library/Arduino15/packages/**",
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "UBRRH",ㄴ
+                "LED_BUILTIN"
+            ],
+            "macFrameworkPath": [
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "forcedInclude": []
+        }
+    ],
+    "version": 4
+}
+```
+
+
+
 ### gpio
 
 16 핀은 pulldown 가능하다, 나머지 핀들은 pullup 만 가능함.  
