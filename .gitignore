@@ -4,3 +4,4 @@ package-lock.json
 old/
 test/
 .DS_Store
+build/
