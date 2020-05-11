@@ -103,6 +103,36 @@ void setup()
 
 void loop()
 {
+    {
+        //응답처리
+        int packetSize = Udp.parsePacket();
+        if (packetSize)
+        {
+            // receive incoming UDP packets
+            static char recBuf[1024];
+            
+            Serial.printf("Received %d bytes from %s, port %d\n", packetSize, Udp.remoteIP().toString().c_str(), Udp.remotePort());
+            int len = Udp.read(recBuf, 1024);
+            recBuf[len] = 0x00;
+
+            // Serial.printf("header : %d,code:%d,status:%d,extra:%d",
+            //               receivePacket.m_header,
+            //               receivePacket.m_code,
+            //               receivePacket.m_status,
+            //               receivePacket.m_extra);
+
+            Serial.printf("size :%d , data : \"%s\"",len,recBuf);
+            // Serial.printf("data : %d", receivePacket.m_data);
+
+            // if (len > 0)
+            // {
+            //   incomingPacket[len] = 0;
+            // }
+            // Serial.printf("UDP packet contents: %s\n", incomingPacket);
+        }
+    }
+
+    //Serial Parse
     while (Serial.available() > 0)
     {
         char _c = Serial.read();
@@ -116,7 +146,14 @@ void loop()
         case 'n':
             Serial.println("connect ap");
             {
-                WiFi.disconnect();
+                if (WiFi.status() == WL_CONNECTED)
+                {
+                    Serial.println("disconnect wifi ");
+                    WiFi.disconnect();
+                    delay(500);
+                }
+
+                WiFi.mode(WIFI_STA);
                 WiFi.begin(g_ConfigData.m_ssid, g_ConfigData.m_passwd);
                 while (WiFi.status() != WL_CONNECTED)
                 {
@@ -212,6 +249,7 @@ void loop()
                 char _c = Serial.read();
                 if (_c == 'u')
                 {
+                    Serial.printf("udp packet send to %s ... \n", g_ConfigData.m_remoteIp.c_str());
                     Udp.beginPacket(g_ConfigData.m_remoteIp.c_str(), g_ConfigData.m_remote_port);
                     Udp.write("ping", 5);
                     Udp.endPacket();
@@ -238,7 +276,8 @@ void loop()
                             {
                                 String line = client.readStringUntil('\n');
                                 Serial.println(line);
-                                break;;
+                                break;
+                                ;
                             }
                             // Serial.printf("%f \n",client.available());
                             // delay(300);
@@ -246,7 +285,6 @@ void loop()
                         // Serial.println("\n[disconnecting.....]");
                         Serial.println("\n[Disconnected]");
                         client.stop();
-                        
                     }
                     else
                     {

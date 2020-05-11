@@ -24,6 +24,13 @@ void setup()
     passwd = (const char *)doc["passwd"];
     _f.close();
   }
+//wifi 초기화 
+  WiFi.disconnect();
+  delay(500);
+
+//반드시 접속 모드를 명기해주어야한다. 일부 공유기에서는 STA_AP가 동작하지 않는다.
+  WiFi.mode(WIFI_STA);
+  delay(100);
 
   WiFi.begin(ssid, passwd);
 
@@ -39,8 +46,7 @@ void setup()
   digitalWrite(status_led_pin, LOW);
   Serial.println();
 
-  Serial.print("Connected, IP address: ");
-  Serial.println(WiFi.localIP());
+  Serial.printf("Connected, IP address: %s \n",WiFi.localIP());
 }
 
 void loop() {}

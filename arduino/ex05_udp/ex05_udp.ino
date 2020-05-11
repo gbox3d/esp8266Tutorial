@@ -6,7 +6,9 @@
 const int status_led_pin = 2; //d4
 
 WiFiUDP Udp;
-unsigned int localUdpPort = 4210; // local port to listen on
+String remoteIp;
+unsigned int remoteUdpPort;
+unsigned int localUdpPort; // local port to listen on
 char incomingPacket[255];         // buffer for incoming packets
 //char  replyPacket[] = "Hi there! Got the message :-)";  // a reply string to send back
 
@@ -47,11 +49,19 @@ void setup()
     deserializeJson(doc, _f);
     ssid = (const char *)doc["ssid"];
     passwd = (const char *)doc["passwd"];
+    remoteIp = (const char *)doc["remoteIp"];
+    remoteUdpPort = doc["remotePort"];
     _f.close();
   }
+//wifi 초기화 
+  WiFi.disconnect();
+  delay(500);
 
-  //WiFi.begin("ubiqos office", "28608010");
-  WiFi.begin(ssid,passwd);
+  //반드시 접속 모드를 명기해주어야한다. 일부 공유기에서는 STA_AP가 동작하지 않는다.
+  WiFi.mode(WIFI_STA);
+  delay(100);
+
+  WiFi.begin(ssid, passwd);
 
   Serial.print("Connecting");
   while (WiFi.status() != WL_CONNECTED)
@@ -64,6 +74,8 @@ void setup()
   }
   digitalWrite(status_led_pin, LOW);
   Serial.println();
+
+  Serial.printf("Connected, IP address: %s \n", WiFi.localIP().toString().c_str());
 
   delay(500);
   Udp.begin(localUdpPort);
@@ -85,16 +97,15 @@ void loop()
     testPacket.m_index = 15001;
     testPacket.m_sensorData = 96.75;
 
-    IPAddress remote_ip(192,168,4,2);
-    Udp.beginPacket(remote_ip, 2012);
+    // IPAddress remote_ip(192, 168, 4, 2);
+    Serial.printf("udp packet send to %s ... \n", remoteIp.c_str());
+    Udp.beginPacket(remoteIp.c_str(), remoteUdpPort);
     Udp.write((const char *)&testPacket, sizeof(S_Packet));
-
     Udp.endPacket();
 
-    Serial.println("send....");
   }
 
-  // delay(100);
+  delay(100);
 
   {
     S_RemotePacket receivePacket;
@@ -106,23 +117,14 @@ void loop()
       Serial.printf("Received %d bytes from %s, port %d\n", packetSize, Udp.remoteIP().toString().c_str(), Udp.remotePort());
       int len = Udp.read((char *)&receivePacket, sizeof(S_RemotePacket));
 
-      Serial.printf("header : %d,code:%d,status:%d,extra:%d",
+      Serial.printf("\n------\n header : %d,code:%d,status:%d,extra:%d \n",
                     receivePacket.m_header,
                     receivePacket.m_code,
                     receivePacket.m_status,
                     receivePacket.m_extra);
-
-      Serial.println();
-      Serial.printf("data : %d", receivePacket.m_data);
-
-
-      // if (len > 0)
-      // {
-      //   incomingPacket[len] = 0;
-      // }
-      // Serial.printf("UDP packet contents: %s\n", incomingPacket);
+      Serial.printf("data : %d \n---------\n", receivePacket.m_data);
     }
   }
 
-  delay(3000);
+  delay(5000);
 }

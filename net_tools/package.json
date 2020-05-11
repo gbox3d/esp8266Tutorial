@@ -4,7 +4,8 @@
   "description": "network test tools",
   "main": "udp_server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "udp" : "npm start udp_server.js --port 2012"
   },
   "author": "",
   "license": "ISC",
