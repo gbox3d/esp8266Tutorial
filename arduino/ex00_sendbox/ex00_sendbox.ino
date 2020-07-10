@@ -302,6 +302,22 @@ void loop()
             }
             Serial.println("format done");
             break;
+        case 'h':
+        {
+            Serial.println("http://arduino-er.blogspot.com/");
+            Serial.println("ESP chip and flash info");
+            Serial.printf("The ESP8266 chip ID as a 32-bit integer:\t%08X\n", ESP.getChipId());
+            Serial.printf("The flash chip ID as a 32-bit integer:\t\t%08X\n", ESP.getFlashChipId());
+            Serial.printf("Flash chip frequency:\t\t\t\t%d (Hz)\n", ESP.getFlashChipSpeed());
+
+            /* ESP.getFlashChipSize() returns the flash chip size, in bytes, 
+   * as seen by the SDK (may be less than actual size).
+   */
+            Serial.printf("Flash chip size:\t\t\t\t%d (bytes)\n", ESP.getFlashChipSize());
+
+            Serial.printf("Free heap size:\t\t\t\t\t%d (bytes)\n", ESP.getFreeHeap());
+        }
+        break;
         }
     }
 }
