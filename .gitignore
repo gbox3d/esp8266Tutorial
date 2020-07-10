@@ -5,3 +5,4 @@ old/
 test/
 .DS_Store
 build/
+_config.json
